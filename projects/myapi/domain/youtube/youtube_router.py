@@ -12,20 +12,20 @@ router = APIRouter(
 )
 
 
-options = webdriver.ChromeOptions()
+# options = webdriver.ChromeOptions()
 
-options.add_argument("headless")
+# options.add_argument("headless")
 
-driver = webdriver.Chrome(executable_path="/chromedriver", options=options)
+# driver = webdriver.Chrome(executable_path="/chromedriver", options=options)
 
 
 @router.get("/answer")
 def grab(url):
-    # options = webdriver.ChromeOptions()
+    options = webdriver.ChromeOptions()
 
-    # options.add_argument("headless")
+    options.add_argument("headless")
 
-    # driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+    driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
 
     driver.get(url)
 
