@@ -12,7 +12,7 @@
 
     function get_question_list(_page) {
         let params = {
-            $page: _page,
+            page: _page,
             size: size,
         }
         fastapi('get', '/api/question/list', params, (json) => {
