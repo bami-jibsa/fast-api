@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import random
 
@@ -20,12 +22,15 @@ router = APIRouter(
 
 
 @router.get("/answer")
-def grab(url):
+def grab():
+    url = 'https://www.youtube.com/watch?v=IYagFyfY3EU&ab_channel=PAKA'
     options = webdriver.ChromeOptions()
 
     options.add_argument("headless")
 
-    driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+    # driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
     driver.get(url)
 
@@ -46,10 +51,10 @@ def grab(url):
     rand = random.randint(0, len(texts))
     end_name = name[rand]
     end_texts = texts[rand]
-    print(f'아이디 {len(name)}, 내용 {len(texts)}')
-    print(f'랜덤번호:{rand}')
-    print(f'당첨자 이름: {name[rand]}')
-    print(f'당첨 내용: {texts[rand]}')
+    # print(f'아이디 {len(name)}, 내용 {len(texts)}')
+    # print(f'랜덤번호:{rand}')
+    # print(f'당첨자 이름: {name[rand]}')
+    # print(f'당첨 내용: {texts[rand]}')
 
     return end_name, end_texts
 # #----------------챗지피티가 만든거------------------------------------------
