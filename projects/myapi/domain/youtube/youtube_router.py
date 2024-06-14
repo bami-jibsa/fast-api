@@ -9,6 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 import random
 
+from domain.question import question_router
 router = APIRouter(
     prefix="/youtube/question",
 )
@@ -22,8 +23,8 @@ router = APIRouter(
 
 
 @router.get("/answer")
-def grab():
-    url = 'https://www.youtube.com/watch?v=IYagFyfY3EU&ab_channel=PAKA'
+def grab(_url):
+    url = _url
     options = webdriver.ChromeOptions()
 
     options.add_argument("headless")
@@ -65,7 +66,7 @@ def grab():
 # from selenium.webdriver.common.by import By
 # from selenium.webdriver.common.keys import Keys
 # import time
-# import random
+# import random     
 
 # router = APIRouter(
 #     prefix="/youtube/question",

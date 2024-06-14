@@ -37,6 +37,20 @@
             }
         )
     }
+    function get_youtube_comment(subject) {
+        let url = '/youtube/question/answer'
+        let params = {
+            _url: subject
+        }
+        fastapi('get', url, params, (json) => {
+            let end_name = json[0];
+            let end_text = json[1];
+
+            document.getElementById('author').innerText
+            document.getElementById('comment').innerText
+        })
+    }
+    // get_youtube_comment(question.subject)
 </script>
 <!-- 
 <h1>{question.subject}</h1>
@@ -53,6 +67,12 @@
     <textarea rows="15" bind:value={content}></textarea>
     <input type="submit" value="답변등록" on:click="{post_answer}">
 </form> -->
+<!-- 유튭-->
+<div>
+    <h3>Author: <span id="author"></span></h3>
+    <p>Comment: <span id="comment"></span></p>
+    <button on:click={() => get_youtube_comment(question.subject)}>Get youtube Comment</button>
+</div>
 
 <div class="container my-3">
     <!-- 질문 -->
@@ -94,6 +114,8 @@
         <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" />
     </form>
 </div>
+
+
 <!-- <style>
     textarea {
         width:100%;

@@ -21,8 +21,18 @@
             total = json.total
         })
     }
-
+    // function get_youtube_comment(_text){
+    //     let params = {
+    //         text: _text
+    //     }
+    //     fastapi('get', '/youtubr/question/answer', params, (json => {
+    //         question_list = json.question_list
+    //         $text = _text
+    //         total = json.total
+    //     }))
+    // }
     $: get_question_list($page)
+    // $: get_youtube_comment($text)
 </script>
 
 <div class="container my-3">
