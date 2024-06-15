@@ -6,7 +6,7 @@
 <!-- 네비게이션바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container-fluid">
-        <a use:link class="navbar-brand" href="/" on:click="{() => {$page = 0}}">Bami_Jibsa</a>
+        <a use:link class="navbar-brand" href="/" on:click="{() => {$page = 0}}">바미집사</a>
         <button
             class="navbar-toggler"
             type="button"

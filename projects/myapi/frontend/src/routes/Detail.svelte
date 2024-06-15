@@ -3,6 +3,8 @@
     import Error from "../components/Error.svelte"
     import { push } from 'svelte-spa-router'
     import moment from 'moment/min/moment-with-locales'
+    // import { onMount } from "svelte";
+
     moment.locale('ko')
 
     
@@ -37,17 +39,20 @@
             }
         )
     }
+    
+    let end_name = '';
+    let end_text = '';
     function get_youtube_comment(subject) {
         let url = '/youtube/question/answer'
         let params = {
             _url: subject
         }
-        fastapi('get', url, params, (json) => {
-            let end_name = json[0];
-            let end_text = json[1];
+        console.log(subject)
 
-            document.getElementById('author').innerText
-            document.getElementById('comment').innerText
+        fastapi('get', url, params, (json) => {
+            end_name = json[0]
+            end_text = json[1]
+
         })
     }
     // get_youtube_comment(question.subject)
@@ -69,9 +74,9 @@
 </form> -->
 <!-- 유튭-->
 <div>
-    <h3>Author: <span id="author"></span></h3>
-    <p>Comment: <span id="comment"></span></p>
-    <button on:click={() => get_youtube_comment(question.subject)}>Get youtube Comment</button>
+    <h3>name: {end_name}</h3>
+    <p>Comment: {end_text}</p>
+    <button on:click={() => get_youtube_comment(question.content)}>유튜브 댓글 추첨기</button>
 </div>
 
 <div class="container my-3">

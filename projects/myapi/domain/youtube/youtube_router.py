@@ -25,6 +25,7 @@ router = APIRouter(
 @router.get("/answer")
 def grab(_url):
     url = _url
+    print(url)
     options = webdriver.ChromeOptions()
 
     options.add_argument("headless")
