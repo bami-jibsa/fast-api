@@ -7,7 +7,6 @@
 
     moment.locale('ko')
 
-    
     export let params = {}
     let question_id = params.question_id
     let question = {answers:[]}
@@ -42,6 +41,20 @@
     
     let end_name = '';
     let end_text = '';
+    function get_youtube_api_comment(subject) {
+        let url = '/youtube/question/api_answer'
+        let params = {
+            _url: subject
+        }
+        console.log(subject)
+
+        fastapi('get', url, params, (json) => {
+            end_name = json[0]
+            end_text = json[1]
+
+        })
+    }
+    
     function get_youtube_comment(subject) {
         let url = '/youtube/question/answer'
         let params = {
@@ -57,69 +70,64 @@
     }
     // get_youtube_comment(question.subject)
 </script>
-<!-- 
-<h1>{question.subject}</h1>
-<div>
-    {question.content}
-</div>
-<ul>
-    {#each question.answers as answer}
-        <li>{answer.content}</li>
-    {/each}
-</ul>
-<Error error={error} />
-<form method="post">
-    <textarea rows="15" bind:value={content}></textarea>
-    <input type="submit" value="답변등록" on:click="{post_answer}">
-</form> -->
-<!-- 유튭-->
-<div>
-    <h3>name: {end_name}</h3>
-    <p>Comment: {end_text}</p>
-    <button on:click={() => get_youtube_comment(question.content)}>유튜브 댓글 추첨기</button>
-</div>
 
-<div class="container my-3">
-    <!-- 질문 -->
-    <h2 class="border-bottom py-2">{question.subject}</h2>
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{question.content}</div>
-            <div class="d-flex justify-content-end">
-                <div class="badge bg-light text-dark p-2">
-                    {moment(question.create_date).format("YYYY년 MM월 DD일 hh:mm a")}
-                </div>
+<body class="bg-dark text-white">
+    <!-- 유튜브 댓글 추첨기 부분 -->
+    <div class="container my-3">
+        <div class="card my-3 bg-secondary">
+            <div class="card-body">
+                <h3>name: {end_name}</h3>
+                <hr>
+                <p>Comment: {end_text}</p>
+                <hr>
+                <button class="btn bg-white" on:click={() => get_youtube_comment(question.content)}>유튜브 댓글 추첨기</button>
+                <button class="btn bg-white"on:click={() => get_youtube_api_comment(question.content)}>빠른유튜브 댓글 추첨기</button>
             </div>
         </div>
     </div>
-    <button class="btn btn-secondary" on:click="{() => {
-        push('/')
-    }}">목록으로</button>
 
-    <!-- 답변 목록 -->
-    <h5 class="border-bottom my-3 py-2">{question.answers.length}개의 답변이 있습니다.</h5>
-    {#each question.answers as answer}
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{answer.content}</div>
-            <div class="d-flex justify-content-end">
-                <div class="badge bg-light text-dark p-2">
-                    {moment(answer.create_date).format("YYYY년 MM월 DD일 hh:mm a")}
+    <!-- 질문 및 답변 부분 -->
+    <div class="container my-3">
+        <!-- 질문 -->
+        <div class="card my-3 bg-secondary">
+            <div class="card-body">
+                <h2 class="border-bottom py-2">{question.subject}</h2>
+                <div class="card-text" style="white-space: pre-line;">{question.content}</div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2">
+                        {moment(question.create_date).format("YYYY년 MM월 DD일 hh:mm a")}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {/each}
-    <!-- 답변 등록 -->
-    <Error error={error} />
-    <form method="post" class="my-3">
-        <div class="mb-3">
-            <textarea rows="10" bind:value={content} class="form-control" />
-        </div>
-        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" />
-    </form>
-</div>
+        <button class="btn bg-white" on:click="{() => {
+            push('/')
+        }}">목록으로</button>
 
+        <!-- 답변 목록 -->
+        <h5 class="border-bottom my-3 py-2">{question.answers.length}개의 답변이 있습니다.</h5>
+        {#each question.answers as answer}
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;">{answer.content}</div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2">
+                        {moment(answer.create_date).format("YYYY년 MM월 DD일 hh:mm a")}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/each}
+        <!-- 답변 등록 -->
+        <Error error={error} />
+        <form method="post" class="my-3">
+            <div class="mb-3">
+                <textarea rows="10" bind:value={content} class="form-control" />
+            </div>
+            <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" />
+        </form>
+    </div>
+</body>
 
 <!-- <style>
     textarea {
